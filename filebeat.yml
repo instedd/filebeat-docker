@@ -1,0 +1,12 @@
+filebeat.prospectors:
+- type: docker
+  containers.ids: '*'
+  processors:
+  - add_docker_metadata: ~
+output.elasticsearch:
+  hosts: ${ELASTICSEARCH_URL}
+
+setup.template.settings:
+  index:
+    number_of_shards: 1
+    number_of_replicas: 0

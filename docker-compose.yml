@@ -1,0 +1,18 @@
+version: '2'
+
+services:
+  elasticsearch:
+    image: elastic/elasticsearch:6.5.3
+
+  kibana:
+    image: elastic/kibana:6.5.3
+
+  filebeat:
+    image: elastic/filebeat:6.5.3
+    user: root
+    volumes:
+      - ./filebeat.yml:/usr/share/filebeat/filebeat.yml
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/containers:/var/lib/docker/containers
+    environment:
+      ELASTICSEARCH_URL: http://elasticsearch:9200
