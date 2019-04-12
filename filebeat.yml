@@ -1,9 +1,9 @@
 filebeat.inputs:
 - type: docker
   containers.ids: '*'
+  tail_files: ${TAIL_FILES:false}
   processors:
   - add_docker_metadata: ~
-  ignore_older: 30m
 
 output.elasticsearch:
   hosts: ${ELASTICSEARCH_URL}
