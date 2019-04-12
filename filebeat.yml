@@ -3,6 +3,8 @@ filebeat.inputs:
   containers.ids: '*'
   processors:
   - add_docker_metadata: ~
+  ignore_older: 30m
+
 output.elasticsearch:
   hosts: ${ELASTICSEARCH_URL}
 
