@@ -5,6 +5,10 @@ filebeat.inputs:
 
 processors:
 - add_docker_metadata: ~
+- drop_event:
+    when:
+      equals:
+        container.labels.io_rancher_stack_service_name: ipsec/ipsec/router
 
 output.elasticsearch:
   hosts: ${ELASTICSEARCH_URL}
