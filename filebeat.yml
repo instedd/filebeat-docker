@@ -12,6 +12,15 @@ processors:
               container.labels.io_rancher_stack_service_name: ipsec/ipsec/router
           - equals:
               container.labels.io_rancher_stack_service_name: logging/filebeat
+  - include_fields:
+      fields:
+        - message
+        - container.name
+        - container.image.name
+        - container.labels.com_docker_compose_project
+        - container.labels.com_docker_compose_service
+        - container.labels.io_rancher_stack_service_name
+        - container.labels.io_rancher_stack_name
 
 output.elasticsearch:
   hosts: ${ELASTICSEARCH_URL}
