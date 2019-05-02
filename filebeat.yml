@@ -1,14 +1,17 @@
 filebeat.inputs:
-- type: docker
-  containers.ids: '*'
-  tail_files: ${TAIL_FILES:false}
+  - type: docker
+    containers.ids: '*'
+    tail_files: ${TAIL_FILES:false}
 
 processors:
-- add_docker_metadata: ~
-- drop_event:
-    when:
-      equals:
-        container.labels.io_rancher_stack_service_name: ipsec/ipsec/router
+  - add_docker_metadata: ~
+  - drop_event:
+      when:
+        or:
+          - equals:
+              container.labels.io_rancher_stack_service_name: ipsec/ipsec/router
+          - equals:
+              container.labels.io_rancher_stack_service_name: logging/filebeat
 
 output.elasticsearch:
   hosts: ${ELASTICSEARCH_URL}
